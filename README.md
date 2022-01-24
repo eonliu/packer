@@ -1,5 +1,7 @@
 # Packer
 
+[![license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](https://github.com//packer/master/LICENSE)
+
 Packer设计初衷是通过Gradle Task进行自动打包、加固、并上传到指定FTP地址，供其他人员使用APK，可以节省开发人员的打包时间，同时也方便测试等同学使用最新apk。
 
 ## 功能介绍
@@ -46,18 +48,4 @@ sync Gradle之后在`Android Studio->Gradle->app->packer`task组中可以查看�
 
 ## License
 
-```text
-Copyright 2022 Liu Yong
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-   http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
+[![license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](https://github.com//packer/master/LICENSE)
