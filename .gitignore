@@ -15,3 +15,4 @@
 local.properties
 
 .idea
+packer-plugin/gradle.properties
