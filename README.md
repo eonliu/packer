@@ -1,8 +1,10 @@
-# packer
+# Packer
 
-Packer是Android打包工具插件，支持360加固、多渠道打包、将APK上传到FTP等功能。
+Packer设计初衷是通过Gradle Task进行自动打包、加固、并上传到指定FTP地址，供其他人员使用APK，可以节省开发人员的打包时间
 
-# 功能介绍
+## 功能介绍
+
+
 
 - [x] 支持variants。
 
@@ -16,7 +18,7 @@ Packer是Android打包工具插件，支持360加固、多渠道打包、将APK�
 
 - [ ] 支持多渠道打包。
 
-# Install
+## Install
 
 ```groovy
 dependencies {
@@ -24,7 +26,7 @@ dependencies {
 }
 ```
 
-# Usage
+## Usage
 在主工程中添加如下配置代码。
 
 ```groovy
@@ -42,7 +44,7 @@ packer {
 
 sync Gradle之后在`Android Studio->Gradle->app->packer`task组中可以查看并使用packer所有task。
 
-# License
+## License
 
 ```text
 Copyright 2022 Liu Yong
