@@ -22,16 +22,19 @@ class Util {
                         executable 'cmd'
                         args '/c', command
                 }
+                println("> Packer: Windows Uploading...")
             } else {
                 project.exec {
                     ExecSpec execSpec ->
                         executable 'bash'
                         args '-c', command
                 }
+                println("> Packer: Mac Uploading...")
             }
             closure.call()
         } catch (Exception e) {
             e.printStackTrace()
+            println("> Packer: Upload error > ${e.message}")
         }
     }
 
