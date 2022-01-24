@@ -1,0 +1,3 @@
+rootProject.name = "packer"
+include ':packer-demo'
+include ':packer-plugin'
