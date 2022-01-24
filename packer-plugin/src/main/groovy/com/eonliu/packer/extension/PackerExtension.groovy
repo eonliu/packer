@@ -5,7 +5,7 @@ import org.gradle.util.ConfigureUtil
 
 /**
  * 配置选项
- * @author Yong Liu
+ * @author Eon Liu
  */
 class PackerExtension {
 

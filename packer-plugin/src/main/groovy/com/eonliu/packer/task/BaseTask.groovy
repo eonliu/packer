@@ -3,7 +3,7 @@ package com.eonliu.packer.task
 import org.gradle.api.DefaultTask
 
 /**
- * @author Yong Liu
+ * @author Eon Liu
  */
 class BaseTask extends DefaultTask {
 

@@ -1,12 +1,12 @@
 apply plugin: 'groovy'
 apply plugin: 'java-gradle-plugin'
-apply plugin: 'maven-publish'
+apply from: 'publish-mavencentral.gradle'
 
 gradlePlugin {
     plugins {
         greeting {
-            id = PACKER_PLUGIN_ID
-            implementationClass = PACKER_IMPLEMENTATION_CLASS
+            id = 'com.eonliu.packer'
+            implementationClass = 'com.eonliu.packer.PackerPlugin'
         }
     }
 }
@@ -29,39 +29,6 @@ sourceSets {
 
         resources {
             srcDir 'src/main/resources'
-        }
-    }
-}
-
-task sourcesJar(type: Jar) {
-    from sourceSets.main.allJava
-    archiveClassifier = 'sources'
-}
-
-task javadocJar(type: Jar) {
-    from javadoc
-    archiveClassifier = 'javadoc'
-}
-
-publishing {
-    publications {
-        packer(MavenPublication) {
-            from components.java
-            groupId = PACKER_MAVEN_GROUP_ID
-            artifactId = PACKER_MAVEN_ARTIFACT_ID
-            version = PACKER_MAVEN_VERSION
-            artifact sourcesJar
-            artifact javadocJar
-        }
-    }
-    repositories {
-        maven {
-            url = version.endsWith('SNAPSHOT') ? MAVEN_REPO_DEFAULT_SNAPSHOT_URL : MAVEN_REPO_DEFAULT_RELEASE_URL
-            //            url = uri('../repo')
-            credentials {
-                username = 'eonliu'
-                password = 'Android2323,,,.'
-            }
         }
     }
 }

@@ -2,6 +2,7 @@ package com.eonliu.packer.extension
 
 /**
  * FTP相关配置
+ * @author Eon Liu
  */
 class FtpExtension {
     /**

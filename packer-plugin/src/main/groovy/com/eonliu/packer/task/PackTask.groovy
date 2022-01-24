@@ -5,7 +5,7 @@ package com.eonliu.packer.task
  * step2: 重新签名
  * step3: 打多渠道包
  * step4: 将多渠道包上传到ftp指定目录
- * @author Yong Liu
+ * @author Eon Liu
  */
 class PackTask extends BaseTask {
 

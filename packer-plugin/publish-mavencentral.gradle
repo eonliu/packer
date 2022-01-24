@@ -1,0 +1,85 @@
+apply plugin: 'maven-publish'
+
+ext {
+    PUBLISH_ARTIFACT_ID = "packer"
+    //发布版本号
+    PUBLISH_VERSION = "0.1.1"
+    //sonatype的group_id
+    PUBLISH_GROUP_ID = 'com.eonliu.packer'
+    // maven仓库默认RELEASE地址
+    PUBLISH_MAVEN_RELEASE_URL='https://s01.oss.sonatype.org/content/repositories/releases/'
+    // maven仓库默认SNAPSHOT地址
+    PUBLISH_MAVEN_SNAPSHOT_URL='https://s01.oss.sonatype.org/content/repositories/snapshots/'
+
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    archiveClassifier = 'sources'
+}
+
+task javadocJar(type: Jar) {
+    from javadoc
+    archiveClassifier = 'javadoc'
+}
+
+File secretPropsFile = project.rootProject.file('local.properties')
+if (secretPropsFile.exists()) {
+    println "Found secret props file, loading props"
+    Properties p = new Properties()
+    p.load(new FileInputStream(secretPropsFile))
+    p.each { name, value ->
+        ext[name] = value
+    }
+} else {
+    println "No props file, loading env vars"
+}
+publishing {
+    publications {
+        packer(MavenPublication) {
+            from components.java
+            groupId = PUBLISH_GROUP_ID
+            artifactId = PUBLISH_ARTIFACT_ID
+            version = PUBLISH_VERSION
+            artifact sourcesJar
+            artifact javadocJar
+
+            pom {
+                name = PUBLISH_ARTIFACT_ID
+                description = 'Packer是Android打包工具插件，支持360加固、多渠道打包、将APK上传到FTP等功能。' //项目描述
+                url = 'https://github.com/eonliu/packer' // 项目github链接
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'eonliu' // sonatype用户名
+                        name = 'eonliu' // sonatype用户名
+                        email = 'eonliu1024@gmail.com' // sonatype注册邮箱
+                    }
+                }
+                // Version control info, if you're using GitHub, follow the format as seen here
+                scm {
+                    connection = 'scm:https://github.com/eonliu/packer.git'
+                    developerConnection = 'scm:https://github.com/eonliu/packer.git'
+                    //分支地址：
+                    url = 'https://github.com/eonliu/packer/master'
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = "packer"
+            url = version.endsWith('SNAPSHOT') ? PUBLISH_MAVEN_SNAPSHOT_URL : PUBLISH_MAVEN_RELEASE_URL
+
+            credentials {
+                username ossrhUsername
+                password ossrhPassword
+            }
+        }
+    }
+}

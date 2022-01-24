@@ -8,7 +8,7 @@ import org.gradle.api.Project
 
 /**
  * 打包插件
- * @author Yong Liu
+ * @author Eon Liu
  */
 class PackerPlugin implements Plugin<Project> {
 
