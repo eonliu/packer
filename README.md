@@ -16,11 +16,7 @@ Packer是Android打包工具插件，支持360加固、多渠道打包、将APK�
 
 - [ ] 支持多渠道打包。
 
-# 使用Packer
-
-## 1.添加packer插件依赖
-
-在项目根目录的```build.gradle```文件中添加packer插件依赖。
+# Install
 
 ```groovy
 dependencies {
@@ -28,21 +24,12 @@ dependencies {
 }
 ```
 
-## 2.应用packer插件
-
-在主工程的`build.gradle`中应用packer插件。
-
-```groovy
-plugins {
-    id 'com.eonliu.packer'
-}
-```
-
-## 3.配置packer说明
-
+# Usage
 在主工程中添加如下配置代码。
 
 ```groovy
+apply plugin: 'com.eonliu.packer'
+
 packer {
     ftpExtension {
         ftpUserName = 'ftp用户名'
@@ -53,9 +40,7 @@ packer {
 }
 ```
 
-## 4.packer上传task
-
-在`Android Studio->Gradle->app->packer`task组中可以查看并使用packer所有task。
+sync Gradle之后在`Android Studio->Gradle->app->packer`task组中可以查看并使用packer所有task。
 
 # License
 
