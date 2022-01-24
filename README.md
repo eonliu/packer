@@ -45,7 +45,7 @@ packer {
 }
 ```
 
-sync Gradle之后在`Android Studio->Gradle->app->packer`task组中可以查看并使用packer所有task。
+Sync Gradle之后在`Android Studio->Gradle->app->packer`task组中可以查看并使用packer所有task。
 
 ## License
 
