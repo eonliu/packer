@@ -1,6 +1,7 @@
 # Packer
 
 [![license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](https://github.com/eonliu/packer/blob/master/LICENSE)
+[![Release Version](https://img.shields.io/badge/release-0.1.2-red.svg)](https://github.com/eonliu/packer/releases)
 
 Packer设计初衷是通过Gradle Task进行自动打包、加固、并上传到指定FTP地址，供其他人员使用APK，可以节省开发人员的打包时间，同时也方便测试等同学使用最新apk。
 
