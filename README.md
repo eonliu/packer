@@ -1,7 +1,7 @@
 # Packer
 
 [![license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](https://github.com/eonliu/packer/blob/master/LICENSE)
-[![Release Version](https://img.shields.io/badge/release-0.1.2-red.svg)](https://github.com/eonliu/packer/releases)
+[![Release Version](https://img.shields.io/badge/release-0.2.0-red.svg)](https://github.com/eonliu/packer/releases)
 
 Packer设计初衷是通过Gradle Task进行自动打包、加固、并上传到指定FTP地址，供其他人员使用APK，优点是可以节省开发人员的打包时间、方便测试等同学使用最新apk、可以在FTP上查找历史版本APK。
 
@@ -15,6 +15,8 @@ Packer设计初衷是通过Gradle Task进行自动打包、加固、并上传到
 
 - [x] 支持自定义上传路径。
 
+- [x] 支持自定义本地apk目录。
+
 - [x] 对每一个variant都会生成对应的上传task。
 
 - [ ] 支持360加固。
@@ -25,7 +27,7 @@ Packer设计初衷是通过Gradle Task进行自动打包、加固、并上传到
 
 ```groovy
 dependencies {
-    classpath "com.eonliu.packer:packer:0.1.1"
+    classpath "com.eonliu.packer:packer:0.2.0"
 }
 ```
 
@@ -36,6 +38,9 @@ dependencies {
 apply plugin: 'com.eonliu.packer'
 
 packer {
+
+    apkDirectory = '本地apk路径，默认是${projectDir}/build/outputs/apk/${variantDir}/'
+    
     ftpExtension {
         ftpUserName = 'ftp用户名'
         ftpPassword = 'ftp密码'
