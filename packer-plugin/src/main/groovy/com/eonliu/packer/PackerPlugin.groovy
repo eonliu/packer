@@ -63,7 +63,7 @@ class PackerPlugin implements Plugin<Project> {
                                 ftpDir = packerExt.ftpExtension.ftpDir
                             }
 
-                            def realFtpUrl = ftpUrl + ftpDir + File.separator + variantName + "/v" + appExt.defaultConfig.versionName + File.separator
+                            def realFtpUrl = ftpUrl + ftpDir + "/" + variantName + "/v" + appExt.defaultConfig.versionName + "/"
 
                             // 上传文件命令(如果目录不存在自动创建）
                             def command = "curl -u $ftpUserName:$ftpPwd -T $fileUrl $realFtpUrl --ftp-create-dirs"
