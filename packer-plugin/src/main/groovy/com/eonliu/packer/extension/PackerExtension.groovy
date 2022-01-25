@@ -13,6 +13,10 @@ class PackerExtension {
      * FTP相关配置
      */
     FtpExtension ftpExtension = new FtpExtension()
+    /**
+     * apk路径，默认是projectDir/build/outputs/apk/variantDir/
+     */
+    String apkDirectory
 
     void ftpExtension(Action<FtpExtension> action) {
         action.execute(ftpExtension)

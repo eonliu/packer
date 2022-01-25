@@ -17,19 +17,19 @@ class Util {
     static void exec(Project project, String command, Closure closure) {
         try {
             if (OperatingSystem.current().isWindows()) {
+                println("> Packer: Windows Uploading...")
                 project.exec {
                     ExecSpec execSpec ->
                         executable 'cmd'
                         args '/c', command
                 }
-                println("> Packer: Windows Uploading...")
             } else {
+                println("> Packer: Mac Uploading...")
                 project.exec {
                     ExecSpec execSpec ->
                         executable 'bash'
                         args '-c', command
                 }
-                println("> Packer: Mac Uploading...")
             }
             closure.call()
         } catch (Exception e) {

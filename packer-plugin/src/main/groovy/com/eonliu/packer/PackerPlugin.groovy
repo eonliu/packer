@@ -46,11 +46,15 @@ class PackerPlugin implements Plugin<Project> {
 
                     def ftpUserName = packerExt.ftpExtension.ftpUserName
                     def ftpPwd = packerExt.ftpExtension.ftpPassword
-                    def apkDirectory = "${project.projectDir}/build/outputs/apk/" + variantName + "/"
+                    def apkDirectory = packerExt.apkDirectory
+                    if (apkDirectory == null || apkDirectory == "") {
+                        apkDirectory = "${project.projectDir}/build/outputs/apk/" + variant.getDirName() + "/"
+                    }
+                    println("> Packer: apk directory is : $apkDirectory")
                     new File(apkDirectory).list().each {
                         if (it.endsWith(".apk")) {
                             def fileUrl = apkDirectory + it
-                            def ftpUrl
+                            def ftpUrl = ""
                             def ftpDir = project.getRootProject().name
                             if (packerExt.ftpExtension.ftpUrl != null) {
                                 ftpUrl = packerExt.ftpExtension.ftpUrl
@@ -63,7 +67,6 @@ class PackerPlugin implements Plugin<Project> {
 
                             // 上传文件命令(如果目录不存在自动创建）
                             def command = "curl -u $ftpUserName:$ftpPwd -T $fileUrl $realFtpUrl --ftp-create-dirs"
-                            println("> Packer: 开始上传文件...")
                             Util.exec(project, command) {
                                 println("> Packer: ftp路径：" + realFtpUrl)
                                 println("> Packer: 文件上传成功")

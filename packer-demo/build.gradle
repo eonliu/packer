@@ -56,10 +56,13 @@ dependencies {
 }
 
 //packer {
+//
+//    apkDirectory = 'apk路径，默认是projectDir/build/outputs/apk/variantDir/'
+//
 //    ftpExtension {
-//        ftpUserName = 'ftp用户名'
-//        ftpPassword = 'ftp密码'
-//        ftpUrl = 'ftp上传地址'
-//        ftpDir = 'apk保存文件夹，默认使用项目名'
+//        ftpUserName = ''
+//        ftpPassword = ''
+//        ftpUrl = ''
+//        //ftpDir = 'apk保存文件夹，默认使用项目名'
 //    }
 //}
