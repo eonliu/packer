@@ -19,4 +19,20 @@ class JiaGu360Extension {
      * 360加固加固目录,"jiagu"路径
      */
     String jiaguJarPath
+    /**
+     * 签名文件路径
+     */
+    String keystorePath
+    /**
+     * 签名文件密码
+     */
+    String keystorePassword
+    /**
+     * 签名文件alias
+     */
+    String alias
+    /**
+     * 签名文件alias密码
+     */
+    String aliasPassword
 }

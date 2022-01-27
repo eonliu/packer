@@ -63,6 +63,11 @@ packer {
         userName = '17600112636'
         password = 'android123'
         jiaguJarPath = '/Users/ooyao/Downloads/360加固助手/jiagu'
+
+        keystorePath = '/Users/ooyao/Development/workspace/packer/packer-demo/packer-demo.keystore'
+        keystorePassword = 'packer123'
+        alias = 'packer-demo'
+        aliasPassword = 'packer123'
     }
 
     ftp {
