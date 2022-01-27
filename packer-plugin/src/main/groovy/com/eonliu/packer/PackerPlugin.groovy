@@ -3,6 +3,7 @@ package com.eonliu.packer
 import com.android.build.gradle.AppExtension
 import com.eonliu.packer.common.Util
 import com.eonliu.packer.extension.PackerExtension
+import com.eonliu.packer.task.JiaGu360Task
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -18,7 +19,7 @@ class PackerPlugin implements Plugin<Project> {
         project.extensions.create("packer", PackerExtension)
 
         // 打包任务
-//        project.tasks.create("pack", PackTask)
+        project.tasks.create("jiagu", JiaGu360Task)
 
         project.afterEvaluate {
             createUploadApkToFtpTask(project)
@@ -50,7 +51,7 @@ class PackerPlugin implements Plugin<Project> {
                     if (apkDirectory == null || apkDirectory == "") {
                         apkDirectory = "${project.projectDir}/build/outputs/apk/" + variant.getDirName() + "/"
                     }
-                    println("> Packer: apk directory is : $apkDirectory")
+                    project.logger.lifecycle("> Packer: apk directory is : $apkDirectory")
                     new File(apkDirectory).list().each {
                         if (it.endsWith(".apk")) {
                             def fileUrl = apkDirectory + it
@@ -68,8 +69,8 @@ class PackerPlugin implements Plugin<Project> {
                             // 上传文件命令(如果目录不存在自动创建）
                             def command = "curl -u $ftpUserName:$ftpPwd -T $fileUrl $realFtpUrl --ftp-create-dirs"
                             Util.exec(project, command) {
-                                println("> Packer: ftp路径：" + realFtpUrl)
-                                println("> Packer: 文件上传成功")
+                                project.logger.lifecycle("> Packer: ftp路径：" + realFtpUrl)
+                                project.logger.lifecycle("> Packer: 文件上传成功")
                             }
                         }
                     }

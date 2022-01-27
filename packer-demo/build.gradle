@@ -55,14 +55,21 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
 }
 
-//packer {
-//
+packer {
+
 //    apkDirectory = 'apk路径，默认是projectDir/build/outputs/apk/variantDir/'
-//
-//    ftpExtension {
-//        ftpUserName = ''
-//        ftpPassword = ''
-//        ftpUrl = ''
-//        //ftpDir = 'apk保存文件夹，默认使用项目名'
-//    }
-//}
+
+    jiagu {
+        userName = '17600112636'
+        password = 'android123'
+        jiaguJarPath = '/Users/ooyao/Downloads/360加固助手/jiagu'
+    }
+
+    ftp {
+        ftpUserName = ''
+        ftpPassword = ''
+        ftpUrl = ''
+        ftpDir = 'apk保存文件夹，默认使用项目名'
+    }
+
+}
