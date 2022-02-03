@@ -1,3 +1,5 @@
+![](https://raw.github.com/eonliu/packer/master/screenshot/logo.jpg)
+
 # Packer
 
 [![license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](https://github.com/eonliu/packer/blob/master/LICENSE)
