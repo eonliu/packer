@@ -19,12 +19,4 @@ class JiaGu360Extension {
      * 360加固加固目录,"jiagu"路径
      */
     String jiaguJarPath
-    /**
-     * 要加固APK的路径
-     */
-    String inputAPKPath
-    /**
-     * 加固后apk的输出路径
-     */
-    String outputPath
 }
