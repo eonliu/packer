@@ -14,4 +14,12 @@ class BaseTask extends DefaultTask {
         group defaultGroup
     }
 
+    void execAndLog(GString command) {
+        def process = command.execute()
+        def processOutput = new StringBuilder()
+        def processError = new StringBuilder()
+        process.waitForProcessOutput(processOutput, processError)
+        logger.lifecycle(processOutput.toString())
+        logger.error(processError.toString())
+    }
 }

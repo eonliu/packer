@@ -20,19 +20,11 @@ class JiaGu360Extension {
      */
     String jiaguJarPath
     /**
-     * 签名文件路径
+     * 要加固APK的路径
      */
-    String keystorePath
+    String inputAPKPath
     /**
-     * 签名文件密码
+     * 加固后apk的输出路径
      */
-    String keystorePassword
-    /**
-     * 签名文件alias
-     */
-    String alias
-    /**
-     * 签名文件alias密码
-     */
-    String aliasPassword
+    String outputPath
 }

@@ -62,12 +62,18 @@ packer {
     jiagu {
         userName = '17600112636'
         password = 'android123'
-        jiaguJarPath = '/Users/ooyao/Downloads/360加固助手/jiagu'
+        jiaguJarPath = '/Users/ooyao/Desktop/Packer/360加固助手/jiagu'
+    }
 
+    sign {
         keystorePath = '/Users/ooyao/Development/workspace/packer/packer-demo/packer-demo.keystore'
         keystorePassword = 'packer123'
         alias = 'packer-demo'
         aliasPassword = 'packer123'
+    }
+
+    walle {
+        walleJarPath = '/Users/ooyao/Desktop/Packer/walle-cli-all.jar'
     }
 
     ftp {

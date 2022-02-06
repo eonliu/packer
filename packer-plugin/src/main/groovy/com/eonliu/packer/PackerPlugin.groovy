@@ -18,10 +18,26 @@ class PackerPlugin implements Plugin<Project> {
         // 创建packer扩展
         project.extensions.create("packer", PackerExtension)
 
-        // 打包任务
+        // step1:加固任务
         project.tasks.create("jiagu", JiaGu360Task)
+        // step2:重新签名
+        // step3:多渠道打包
+        // step4:上传ftp
 
         project.afterEvaluate {
+//            def packerExt = project.extensions.getByType(PackerExtension)
+//
+//            def walleJar = packerExt.walle.walleJarPath
+//
+//            if (walleJar == null || walleJar.isEmpty()) {
+//                project.logger.lifecycle("请配置walle")
+//            } else {
+//                def exe = "java -jar $walleJar -h"
+//                Util.exec(project, exe) {
+//                    project.logger.lifecycle("瓦力命令执行成功")
+//                }
+//            }
+
             createUploadApkToFtpTask(project)
         }
     }
@@ -45,8 +61,8 @@ class PackerPlugin implements Plugin<Project> {
                 doLast {
                     def packerExt = project.extensions.getByType(PackerExtension)
 
-                    def ftpUserName = packerExt.ftpExtension.ftpUserName
-                    def ftpPwd = packerExt.ftpExtension.ftpPassword
+                    def ftpUserName = packerExt.ftp.ftpUserName
+                    def ftpPwd = packerExt.ftp.ftpPassword
                     def apkDirectory = packerExt.apkDirectory
                     if (apkDirectory == null || apkDirectory == "") {
                         apkDirectory = "${project.projectDir}/build/outputs/apk/" + variant.getDirName() + "/"
@@ -57,11 +73,11 @@ class PackerPlugin implements Plugin<Project> {
                             def fileUrl = apkDirectory + it
                             def ftpUrl = ""
                             def ftpDir = project.getRootProject().name
-                            if (packerExt.ftpExtension.ftpUrl != null) {
-                                ftpUrl = packerExt.ftpExtension.ftpUrl
+                            if (packerExt.ftp.ftpUrl != null) {
+                                ftpUrl = packerExt.ftp.ftpUrl
                             }
-                            if (packerExt.ftpExtension.ftpDir != null) {
-                                ftpDir = packerExt.ftpExtension.ftpDir
+                            if (packerExt.ftp.ftpDir != null) {
+                                ftpDir = packerExt.ftp.ftpDir
                             }
 
                             def realFtpUrl = ftpUrl + ftpDir + "/" + variantName + "/v" + appExt.defaultConfig.versionName + "/"
