@@ -47,19 +47,38 @@ class JiaguBy360Task extends BaseTask {
                             if (it.endsWith(".apk")) {
                                 def inputAPKPath = apkDirectory + it
 
+                                project.logger.lifecycle("> Packer: jiagu inputAPKPath is : $inputAPKPath")
+
                                 def jiaguJarPath = packerExt.jiagu.jiaguJarPath
+                                project.logger.lifecycle("> Packer: jiagu jiaguJarPath is : $jiaguJarPath")
                                 if (jiaguJarPath == null || jiaguJarPath.isEmpty()) return
                                 def jiaguUserName = packerExt.jiagu.userName
                                 def jiaguPassword = packerExt.jiagu.password
+
+                                def jiaguJarCommand = "${jiaguJarPath}/java/bin/java -jar ${jiaguJarPath}/jiagu.jar"
+
                                 // 登录360加固
-                                def loginCommand = "java -jar ${jiaguJarPath}/jiagu.jar -login ${jiaguUserName} ${jiaguPassword}"
+                                def loginCommand = "$jiaguJarCommand -login ${jiaguUserName} ${jiaguPassword}"
                                 execAndLog(loginCommand)
+                                // 配置加固选项
+                                def configCommand = "$jiaguJarCommand -config "
+                                execAndLog(configCommand)
+                                // 设置签名
+                                def signConfigCommand = "$jiaguJarCommand -importsign ${packerExt.sign.keystorePath} ${packerExt.sign.keystorePassword} ${packerExt.sign.alias} ${packerExt.sign.aliasPassword}"
+                                execAndLog(signConfigCommand)
+                                // 查看签名信息
+                                def showSignCommand = "$jiaguJarCommand -showsign"
+                                execAndLog(showSignCommand)
                                 // 查看当前加固服务配置
-                                def showConfigCommand = "java -jar ${jiaguJarPath}/jiagu.jar -showconfig"
+                                def showConfigCommand = "$jiaguJarCommand -showconfig"
                                 execAndLog(showConfigCommand)
                                 def outputPath = "${project.projectDir}/outputs/apk"
-                                new File(outputPath).mkdirs()
-                                def jiaguCommand = "java -jar ${jiaguJarPath}/jiagu.jar -jiagu $inputAPKPath $outputPath"
+                                def outputDir = new File(outputPath)
+                                if (!outputDir.exists()) {
+                                    outputDir.mkdirs()
+                                }
+                                project.logger.lifecycle("> Packer: jiagu outputPath is : $outputPath")
+                                def jiaguCommand = "$jiaguJarCommand -jiagu $inputAPKPath $outputPath -autosign"
                                 execAndLog(jiaguCommand)
                             }
                         }
