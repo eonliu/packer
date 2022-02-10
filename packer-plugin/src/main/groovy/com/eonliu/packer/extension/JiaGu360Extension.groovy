@@ -19,4 +19,8 @@ class JiaGu360Extension {
      * 360加固加固目录,"jiagu"路径
      */
     String jiaguJarPath
+    /**
+     * 多渠道配置文件路径，txt格式
+     */
+    String channelsPath
 }

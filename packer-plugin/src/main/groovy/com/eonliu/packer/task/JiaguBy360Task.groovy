@@ -63,6 +63,12 @@ class JiaguBy360Task extends BaseTask {
                                 // 配置加固选项
                                 def configCommand = "$jiaguJarCommand -config "
                                 execAndLog(configCommand)
+                                // 配置多渠道信息，txt格式
+                                def channelsCommand = "$jiaguJarCommand -importmulpkg ${packerExt.jiagu.channelsPath}"
+                                execAndLog(channelsCommand)
+                                // 查看多渠道信息
+                                def showChannelsCommand = "$jiaguJarCommand -showmulpkg"
+                                execAndLog(showChannelsCommand)
                                 // 设置签名
                                 def signConfigCommand = "$jiaguJarCommand -importsign ${packerExt.sign.keystorePath} ${packerExt.sign.keystorePassword} ${packerExt.sign.alias} ${packerExt.sign.aliasPassword}"
                                 execAndLog(signConfigCommand)
@@ -78,7 +84,7 @@ class JiaguBy360Task extends BaseTask {
                                     outputDir.mkdirs()
                                 }
                                 project.logger.lifecycle("> Packer: jiagu outputPath is : $outputPath")
-                                def jiaguCommand = "$jiaguJarCommand -jiagu $inputAPKPath $outputPath -autosign"
+                                def jiaguCommand = "$jiaguJarCommand -jiagu $inputAPKPath $outputPath -autosign -automulpkg"
                                 execAndLog(jiaguCommand)
                             }
                         }

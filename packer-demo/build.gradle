@@ -63,6 +63,7 @@ packer {
         userName = '17600112636'
         password = 'android123'
         jiaguJarPath = '/Users/ooyao/Desktop/Packer/360加固助手/jiagu'
+        channelsPath = '/Users/ooyao/Development/workspace/packer/packer-demo/channels.txt'
     }
 
     sign {
