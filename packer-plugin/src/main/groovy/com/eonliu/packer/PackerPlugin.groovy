@@ -2,6 +2,7 @@ package com.eonliu.packer
 
 import com.eonliu.packer.extension.PackerExtension
 import com.eonliu.packer.task.JiaguBy360Task
+import com.eonliu.packer.task.UploadApkTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -16,14 +17,8 @@ class PackerPlugin implements Plugin<Project> {
         // 创建packer扩展
         project.extensions.create("packer", PackerExtension)
 
-        // step1:加固任务
-        project.tasks.create("jiaguBy360", JiaguBy360Task)
-        // step2:重新签名
-//            SignTask.sign(project)
-        // step3:多渠道打包
-//            ChannelTask.channel(project)
-        // step4:上传ftp
-//        project.tasks.add("uploadApk", UploadApkTask)
+        project.tasks.create("uploadJiaguApk", JiaguBy360Task)
+        project.tasks.create("uploadApk", UploadApkTask)
     }
 
 }

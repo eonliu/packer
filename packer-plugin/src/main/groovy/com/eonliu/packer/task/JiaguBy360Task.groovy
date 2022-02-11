@@ -30,7 +30,7 @@ class JiaguBy360Task extends BaseTask {
             appExt.applicationVariants.forEach { variant ->
                 def variantName = variant.name.capitalize()
                 // 任务名
-                def taskName = "jiagu" + variantName + "Apk"
+                def taskName = "upload" + variantName + "JiaguApk"
                 project.tasks.create(taskName) {
                     def dependsTask = "assemble" + variantName
                     dependsOn(dependsTask)
@@ -38,6 +38,8 @@ class JiaguBy360Task extends BaseTask {
                     group = "packer"
                     doLast {
                         def packerExt = project.extensions.getByType(PackerExtension)
+                        def ftpUserName = packerExt.ftp.ftpUserName
+                        def ftpPwd = packerExt.ftp.ftpPassword
                         def apkDirectory = packerExt.apkDirectory
                         if (apkDirectory == null || apkDirectory == "") {
                             apkDirectory = "${project.projectDir}/build/outputs/apk/" + variant.getDirName() + "/"
@@ -86,6 +88,27 @@ class JiaguBy360Task extends BaseTask {
                                 project.logger.lifecycle("> Packer: jiagu outputPath is : $outputPath")
                                 def jiaguCommand = "$jiaguJarCommand -jiagu $inputAPKPath $outputPath -autosign -automulpkg"
                                 execAndLog(jiaguCommand)
+
+                                new File(outputPath).list().each {
+                                    if (it.endsWith(".apk")) {
+                                        def fileUrl = outputPath + "/" + it
+                                        def ftpUrl = ""
+                                        def ftpDir = project.getRootProject().name
+                                        if (packerExt.ftp.ftpUrl != null) {
+                                            ftpUrl = packerExt.ftp.ftpUrl
+                                        }
+                                        if (packerExt.ftp.ftpDir != null) {
+                                            ftpDir = packerExt.ftp.ftpDir
+                                        }
+
+                                        def realFtpUrl = ftpUrl + ftpDir + "/" + variantName + "/v" + appExt.defaultConfig.versionName + "/"
+
+                                        // 上传文件命令(如果目录不存在自动创建）
+                                        def command = "curl -u $ftpUserName:$ftpPwd -T $fileUrl $realFtpUrl --ftp-create-dirs"
+                                        execAndLog(command)
+                                        project.logger.lifecycle("> Packer: ftp路径：" + realFtpUrl)
+                                    }
+                                }
                             }
                         }
                     }
