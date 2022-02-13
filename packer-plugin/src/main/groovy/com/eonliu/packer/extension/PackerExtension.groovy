@@ -22,10 +22,6 @@ class PackerExtension {
      */
     FtpExtension ftp = new FtpExtension()
     /**
-     * walle相关配置
-     */
-    WalleExtension walle = new WalleExtension()
-    /**
      * 签名配置
      */
     SignExtension sign = new SignExtension()
@@ -44,14 +40,6 @@ class PackerExtension {
 
     void ftp(Closure c) {
         ConfigureUtil.configure(c, ftp)
-    }
-
-    void walle(Action<FtpExtension> action) {
-        action.execute(walle)
-    }
-
-    void walle(Closure c) {
-        ConfigureUtil.configure(c, walle)
     }
 
     void sign(Action<FtpExtension> action) {

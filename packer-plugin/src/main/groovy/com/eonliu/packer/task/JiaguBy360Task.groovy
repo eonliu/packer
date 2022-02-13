@@ -8,7 +8,7 @@ import org.gradle.api.Project
  * 360加固
  * @author Eon Liu
  */
-class JiaguBy360Task {
+class JiaguBy360Task extends BaseTask {
 
     /**
      * 登录360并进行加固
@@ -51,25 +51,25 @@ class JiaguBy360Task {
 
                                 // 登录360加固
                                 def loginCommand = "$jiaguJarCommand -login ${jiaguUserName} ${jiaguPassword}"
-                                execAndLog(loginCommand)
+                                execAndLog(project, loginCommand)
                                 // 配置加固选项
                                 def configCommand = "$jiaguJarCommand -config "
-                                execAndLog(configCommand)
+                                execAndLog(project, configCommand)
                                 // 配置多渠道信息，txt格式
                                 def channelsCommand = "$jiaguJarCommand -importmulpkg ${packerExt.jiagu.channelsPath}"
-                                execAndLog(channelsCommand)
+                                execAndLog(project, channelsCommand)
                                 // 查看多渠道信息
                                 def showChannelsCommand = "$jiaguJarCommand -showmulpkg"
-                                execAndLog(showChannelsCommand)
+                                execAndLog(project, showChannelsCommand)
                                 // 设置签名
                                 def signConfigCommand = "$jiaguJarCommand -importsign ${packerExt.sign.keystorePath} ${packerExt.sign.keystorePassword} ${packerExt.sign.alias} ${packerExt.sign.aliasPassword}"
-                                execAndLog(signConfigCommand)
+                                execAndLog(project, signConfigCommand)
                                 // 查看签名信息
                                 def showSignCommand = "$jiaguJarCommand -showsign"
-                                execAndLog(showSignCommand)
+                                execAndLog(project, showSignCommand)
                                 // 查看当前加固服务配置
                                 def showConfigCommand = "$jiaguJarCommand -showconfig"
-                                execAndLog(showConfigCommand)
+                                execAndLog(project, showConfigCommand)
                                 def outputPath = "${project.projectDir}/outputs/apk"
                                 def outputDir = new File(outputPath)
                                 if (!outputDir.exists()) {
@@ -77,7 +77,7 @@ class JiaguBy360Task {
                                 }
                                 project.logger.lifecycle("> Packer: jiagu outputPath is : $outputPath")
                                 def jiaguCommand = "$jiaguJarCommand -jiagu $inputAPKPath $outputPath -autosign -automulpkg"
-                                execAndLog(jiaguCommand)
+                                execAndLog(project, jiaguCommand)
 
                                 new File(outputPath).list().each {
                                     if (it.endsWith(".apk")) {
@@ -95,7 +95,7 @@ class JiaguBy360Task {
 
                                         // 上传文件命令(如果目录不存在自动创建）
                                         def command = "curl -u $ftpUserName:$ftpPwd -T $fileUrl $realFtpUrl --ftp-create-dirs"
-                                        execAndLog(command)
+                                        execAndLog(project, command)
                                         project.logger.lifecycle("> Packer: ftp路径：" + realFtpUrl)
                                     }
                                 }

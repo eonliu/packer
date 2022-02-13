@@ -73,10 +73,6 @@ packer {
         aliasPassword = 'packer123'
     }
 
-    walle {
-        walleJarPath = '/Users/ooyao/Desktop/Packer/walle-cli-all.jar'
-    }
-
     ftp {
         ftpUserName = 'toolsftp'
         ftpPassword = 'toolsftp'
