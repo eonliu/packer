@@ -8,18 +8,12 @@ import org.gradle.api.Project
  * 上传apk到ftp
  * @author Eon Liu
  */
-class UploadApkTask extends BaseTask {
-
-    UploadApkTask() {
-        super()
-        createUploadApkToFtpTask(project)
-    }
-
+class UploadApkTask {
     /**
      * 动态创建上传apk到ftp的task
      * @param project
      */
-    void createUploadApkToFtpTask(Project project) {
+    static void createTasks(Project project) {
         project.afterEvaluate {
             def appExt = project.extensions.getByType(AppExtension)
             appExt.applicationVariants.forEach { variant ->

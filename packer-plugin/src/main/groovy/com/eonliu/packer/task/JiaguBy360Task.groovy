@@ -2,35 +2,25 @@ package com.eonliu.packer.task
 
 import com.android.build.gradle.AppExtension
 import com.eonliu.packer.extension.PackerExtension
-import org.gradle.api.tasks.TaskAction
+import org.gradle.api.Project
 
 /**
  * 360加固
  * @author Eon Liu
  */
-class JiaguBy360Task extends BaseTask {
-
-    JiaguBy360Task() {
-        super()
-        loginAndJiagu()
-    }
-
-    @TaskAction
-    def task() {
-
-    }
+class JiaguBy360Task {
 
     /**
      * 登录360并进行加固
      * @param packerExt
      */
-    private void loginAndJiagu() {
+    static void createTasks(Project project) {
         project.afterEvaluate {
             def appExt = project.extensions.getByType(AppExtension)
             appExt.applicationVariants.forEach { variant ->
                 def variantName = variant.name.capitalize()
                 // 任务名
-                def taskName = "upload" + variantName + "JiaguApk"
+                def taskName = "publish" + variantName + "Apks"
                 project.tasks.create(taskName) {
                     def dependsTask = "assemble" + variantName
                     dependsOn(dependsTask)

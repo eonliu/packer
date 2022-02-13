@@ -16,9 +16,8 @@ class PackerPlugin implements Plugin<Project> {
     void apply(Project project) {
         // 创建packer扩展
         project.extensions.create("packer", PackerExtension)
-
-        project.tasks.create("uploadJiaguApk", JiaguBy360Task)
-        project.tasks.create("uploadApk", UploadApkTask)
+        UploadApkTask.createTasks(project)
+        JiaguBy360Task.createTasks(project)
     }
 
 }
