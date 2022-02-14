@@ -7,8 +7,6 @@ Packer设计初衷是通过Gradle Task进行自动打包、加固、并上传到
 
 ## Feature
 
-
-
 - [x] 支持variants。
 
 - [x] 支持自定义ftp。
@@ -32,6 +30,7 @@ dependencies {
 ```
 
 ## Usage
+
 在主工程中添加如下配置代码。
 
 ```groovy
@@ -64,6 +63,8 @@ packer {
 ```
 
 Sync Gradle之后在`Android Studio->Gradle->app->packer`task组中可以查看并使用packer所有task。
+
+`注`：因为360加固限制，需要将`360加固助手/jiagu`文件夹中的`java`文件夹及内容复制到工程的`app`路径下，否则执行task会失败。
 
 ## License
 
