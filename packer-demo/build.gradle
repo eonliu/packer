@@ -55,29 +55,27 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
 }
 
+
 packer {
 
-//    apkDirectory = 'apk路径，默认是projectDir/build/outputs/apk/variantDir/'
-
     jiagu {
-        userName = '17600112636'
-        password = 'android123'
-        jiaguJarPath = '/Users/ooyao/Desktop/Packer/360加固助手/jiagu'
-        channelsPath = '/Users/ooyao/Development/workspace/packer/packer-demo/channels.txt'
+        userName = '360加固用户名'
+        password = '360加固密码'
+        jiaguJarPath = '/***/360加固助手/jiagu' // 360加固文件夹路径
+        channelsPath = '/***/channels.txt' // 多渠道配置文件，参考360加固多渠道配置模板
     }
 
     sign {
-        keystorePath = '/Users/ooyao/Development/workspace/packer/packer-demo/packer-demo.keystore'
-        keystorePassword = 'packer123'
-        alias = 'packer-demo'
-        aliasPassword = 'packer123'
+        keystorePath = '/***/sign.keystore' // 签名
+        keystorePassword = '***' // 签名文件密码
+        alias = '***' // 别名
+        aliasPassword = '***' // 别名密码
     }
 
     ftp {
-        ftpUserName = 'toolsftp'
-        ftpPassword = 'toolsftp'
-        ftpUrl = 'ftp://toolsftp.common.test.yirendai.com:21/ftpadmin/app/'
-        // ftpDir = 'apk保存文件夹，默认使用项目名'
+        ftpUserName = '***' // ftp用户名
+        ftpPassword = 'toolsftp' // ftp密码
+        ftpUrl = 'ftp://***/app/' // ftp地址
     }
 
 }
