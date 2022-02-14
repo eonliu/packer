@@ -17,14 +17,14 @@ class Util {
     static void exec(Project project, String command, Closure closure) {
         try {
             if (OperatingSystem.current().isWindows()) {
-                println("> Packer: Windows Uploading...")
+                project.logger.lifecycle("> Packer: Windows Uploading...")
                 project.exec {
                     ExecSpec execSpec ->
                         executable 'cmd'
                         args '/c', command
                 }
             } else {
-                println("> Packer: Mac Uploading...")
+                project.logger.lifecycle("> Packer: Mac Uploading...")
                 project.exec {
                     ExecSpec execSpec ->
                         executable 'bash'
@@ -34,7 +34,7 @@ class Util {
             closure.call()
         } catch (Exception e) {
             e.printStackTrace()
-            println("> Packer: Upload error > ${e.message}")
+            project.logger.lifecycle("> Packer: Upload error > ${e.message}")
         }
     }
 
