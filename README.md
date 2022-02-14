@@ -64,7 +64,9 @@ packer {
 
 Sync Gradle之后在`Android Studio->Gradle->app->packer`task组中可以查看并使用packer所有task。
 
-`注`：因为360加固限制，需要将`360加固助手/jiagu`文件夹中的`java`文件夹及内容复制到工程的`app`路径下，否则执行task会失败。
+`注：`因为360加固限制，需要将`360加固助手/jiagu`文件夹中的`java`文件夹及内容复制到工程的`app`路径下，否则执行task会失败。
+
+`task说明：`以`upload`开头的task是未加固的，每次会上传一个apk。以`publish`开头的task会进行360加固、重新签名、多渠道打包，会上传多个apk，取决于`channels.txt`中配置多少个渠道。
 
 ## License
 
