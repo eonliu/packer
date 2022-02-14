@@ -70,7 +70,7 @@ class JiaguBy360Task extends BaseTask {
                                 // 查看当前加固服务配置
                                 def showConfigCommand = "$jiaguJarCommand -showconfig"
                                 execAndLog(project, showConfigCommand)
-                                def outputPath = "${project.projectDir}/outputs/apk"
+                                def outputPath = "${project.projectDir}/build/packer/outputs/apk"
                                 def outputDir = new File(outputPath)
                                 if (!outputDir.exists()) {
                                     outputDir.mkdirs()
