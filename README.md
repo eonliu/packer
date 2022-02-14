@@ -19,15 +19,15 @@ Packer设计初衷是通过Gradle Task进行自动打包、加固、并上传到
 
 - [x] 对每一个variant都会生成对应的上传task。
 
-- [ ] 支持360加固。
+- [x] 支持360加固。
 
-- [ ] 支持多渠道打包。
+- [x] 支持多渠道打包。
 
 ## Install
 
 ```groovy
 dependencies {
-    classpath "com.eonliu.packer:packer:0.2.1"
+    classpath "com.eonliu.packer:packer:1.0.0"
 }
 ```
 
@@ -37,16 +37,29 @@ dependencies {
 ```groovy
 apply plugin: 'com.eonliu.packer'
 
+
 packer {
 
-    apkDirectory = '本地apk路径，默认是${projectDir}/build/outputs/apk/${variantDir}/'
-    
-    ftpExtension {
-        ftpUserName = 'ftp用户名'
-        ftpPassword = 'ftp密码'
-        ftpUrl = 'ftp:xxx.xxx.xxx/app/' // ftp上传地址
-        ftpDir = 'apks' // apk保存文件夹，默认使用项目名（上传路径为：ftp:xxx.xxx.xxx/app/apks)
+    jiagu {
+        userName = '360加固用户名'
+        password = '360加固密码'
+        jiaguJarPath = '/***/360加固助手/jiagu' // 360加固文件夹路径
+        channelsPath = '/***/channels.txt' // 多渠道配置文件，参考360加固多渠道配置模板
     }
+
+    sign {
+        keystorePath = '/***/sign.keystore' // 签名
+        keystorePassword = '***' // 签名文件密码
+        alias = '***' // 别名
+        aliasPassword = '***' // 别名密码
+    }
+
+    ftp {
+        ftpUserName = '***' // ftp用户名
+        ftpPassword = 'toolsftp' // ftp密码
+        ftpUrl = 'ftp://***/app/' // ftp地址
+    }
+
 }
 ```
 
