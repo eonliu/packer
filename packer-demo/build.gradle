@@ -55,27 +55,29 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
 }
 
-
 packer {
 
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
     jiagu {
-        userName = '360加固用户名'
-        password = '360加固密码'
-        jiaguJarPath = '/***/360加固助手/jiagu' // 360加固文件夹路径
-        channelsPath = '/***/channels.txt' // 多渠道配置文件，参考360加固多渠道配置模板
+        userName = properties.getProperty('packerUserName')
+        password = properties.getProperty('packerPassword')
+        jiaguJarPath = properties.getProperty('packerJiaguJarPath')
+        channelsPath = properties.getProperty('packerChannelsPath')
     }
 
     sign {
-        keystorePath = '/***/sign.keystore' // 签名
-        keystorePassword = '***' // 签名文件密码
-        alias = '***' // 别名
-        aliasPassword = '***' // 别名密码
+        keystorePath = properties.getProperty('packerKeystorePath')
+        keystorePassword = properties.getProperty('packerKeystorePassword')
+        alias = properties.getProperty('packerAlias')
+        aliasPassword = properties.getProperty('packerAliasPassword')
     }
 
     ftp {
-        ftpUserName = '***' // ftp用户名
-        ftpPassword = 'toolsftp' // ftp密码
-        ftpUrl = 'ftp://***/app/' // ftp地址
+        ftpUserName = properties.getProperty('packerFtpUserName')
+        ftpPassword = properties.getProperty('packerFtpPassword')
+        ftpUrl = properties.getProperty('packerFtpUrl')
     }
 
 }

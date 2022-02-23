@@ -74,13 +74,13 @@ publishing {
     repositories {
         maven {
             name = "packer"
-            url = version.endsWith('SNAPSHOT') ? PUBLISH_MAVEN_SNAPSHOT_URL : PUBLISH_MAVEN_RELEASE_URL
-//            maven {url uri('../repo')}
+//            url = version.endsWith('SNAPSHOT') ? PUBLISH_MAVEN_SNAPSHOT_URL : PUBLISH_MAVEN_RELEASE_URL
+            maven {url uri('../repo')}
 
-            credentials {
-                username ossrhUsername
-                password ossrhPassword
-            }
+//            credentials {
+//                username ossrhUsername
+//                password ossrhPassword
+//            }
         }
     }
 }
