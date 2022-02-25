@@ -93,12 +93,7 @@ class JiaguBy360Task extends BaseTask {
                                             ftpDir = packerExt.ftp.ftpDir
                                         }
 
-                                        def realFtpUrl
-                                        if (packerExt.ftp.autoCreateDir) {
-                                            realFtpUrl = ftpUrl + ftpDir + "/" + variantName + "/v" + appExt.defaultConfig.versionName + "/"
-                                        } else {
-                                            realFtpUrl = ftpUrl
-                                        }
+                                        realFtpUrl = ftpUrl + ftpDir + "/" + variantName + "/v" + appExt.defaultConfig.versionName + "/"
 
                                         // 上传文件命令(如果目录不存在自动创建）
                                         def command = "curl -u $ftpUserName:$ftpPwd -T $fileUrl $realFtpUrl --ftp-create-dirs"

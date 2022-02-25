@@ -22,7 +22,7 @@ class FtpExtension {
      */
     String ftpDir
     /**
-     * 是否自动创建文件路径。
+     * 是否自动创建文件路径。只针对upload**Task，publish不受此参数影响。
      * 默认会创建 projectName/variantName/versionName/ 目录，
      * 如果为false，则直接使用ftpUrl
      */
