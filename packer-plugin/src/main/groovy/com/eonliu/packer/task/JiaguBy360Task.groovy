@@ -72,9 +72,11 @@ class JiaguBy360Task extends BaseTask {
                                 execAndLog(project, showConfigCommand)
                                 def outputPath = "${project.projectDir}/build/packer/outputs/apk"
                                 def outputDir = new File(outputPath)
-                                if (!outputDir.exists()) {
-                                    outputDir.mkdirs()
+                                if (outputDir.exists()) {
+                                    outputDir.deleteDir()
+                                    project.logger.lifecycle("> Packer: delete packer/outputs/apk dir")
                                 }
+                                outputDir.mkdirs()
                                 project.logger.lifecycle("> Packer: jiagu outputPath is : $outputPath")
                                 def jiaguCommand = "$jiaguJarCommand -jiagu $inputAPKPath $outputPath -autosign -automulpkg"
                                 execAndLog(project, jiaguCommand)
@@ -91,7 +93,12 @@ class JiaguBy360Task extends BaseTask {
                                             ftpDir = packerExt.ftp.ftpDir
                                         }
 
-                                        def realFtpUrl = ftpUrl + ftpDir + "/" + variantName + "/v" + appExt.defaultConfig.versionName + "/"
+                                        def realFtpUrl
+                                        if (packerExt.ftp.autoCreateDir) {
+                                            realFtpUrl = ftpUrl + ftpDir + "/" + variantName + "/v" + appExt.defaultConfig.versionName + "/"
+                                        } else {
+                                            realFtpUrl = ftpUrl
+                                        }
 
                                         // 上传文件命令(如果目录不存在自动创建）
                                         def command = "curl -u $ftpUserName:$ftpPwd -T $fileUrl $realFtpUrl --ftp-create-dirs"

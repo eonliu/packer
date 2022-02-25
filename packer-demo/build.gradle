@@ -78,6 +78,7 @@ packer {
         ftpUserName = properties.getProperty('packerFtpUserName')
         ftpPassword = properties.getProperty('packerFtpPassword')
         ftpUrl = properties.getProperty('packerFtpUrl')
+        autoCreateDir = true
     }
 
 }
