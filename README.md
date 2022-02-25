@@ -59,6 +59,8 @@ packer {
         ftpUserName = '***' // ftp用户名
         ftpPassword = 'toolsftp' // ftp密码
         ftpUrl = 'ftp://***/app/' // ftp地址
+        ftpDir = "projectName" // 默认使用工程根目录名称，会拼接到ftpUrl后
+        autoCreateDir = false // false直接传到ftpUrl目录，true会创建 ftpDir/variantName/versionName/ 目录
     }
 
 }
