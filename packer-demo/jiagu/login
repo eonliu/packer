@@ -1,0 +1,4 @@
+#!/bin/sh
+BASEDIR=`dirname $0`
+echo "Starting jiaguHelper" 
+exec $BASEDIR/java/bin/java -Dapple.laf.useScreenMenuBar=true -Dcom.apple.macos.use-file-dialog-packages=true -Xdock:name=360加固助手 -jar $BASEDIR/jiagu.jar
