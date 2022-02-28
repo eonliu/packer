@@ -13,7 +13,6 @@ class TaskCreator {
     static final TASK_PREFIX_PUBLISH = "publish"
     static final TASK_PREFIX_UPLOAD = "upload"
     static final TASK_SUFFIX_APK = "Apk"
-    static final TASK_SUFFIX_APKS = "Apks"
 
     /**
      * 创建task
@@ -27,7 +26,7 @@ class TaskCreator {
             appExt.applicationVariants.forEach { variant ->
                 def variantName = variant.name.capitalize()
                 def taskPrefix = isPublish ? TASK_PREFIX_PUBLISH : TASK_PREFIX_UPLOAD
-                def taskSuffix = isPublish ? TASK_SUFFIX_APKS : TASK_SUFFIX_APK
+                def taskSuffix = TASK_SUFFIX_APK
                 // 任务名
                 def taskName = taskPrefix + variantName + taskSuffix
                 // 创建task
