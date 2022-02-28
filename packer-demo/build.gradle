@@ -63,7 +63,6 @@ packer {
     jiagu {
         userName = properties.getProperty('packerUserName')
         password = properties.getProperty('packerPassword')
-        jiaguJarPath = properties.getProperty('packerJiaguJarPath')
         channelsPath = properties.getProperty('packerChannelsPath')
     }
 
@@ -78,7 +77,9 @@ packer {
         ftpUserName = properties.getProperty('packerFtpUserName')
         ftpPassword = properties.getProperty('packerFtpPassword')
         ftpUrl = properties.getProperty('packerFtpUrl')
-        autoCreateDir = true
+        autoCreateDir = false
+        publishDir = "packer-demo-release"
+        uploadDir = "packer-demo-beta"
     }
 
 }

@@ -1,8 +1,7 @@
 package com.eonliu.packer
 
 import com.eonliu.packer.extension.PackerExtension
-import com.eonliu.packer.task.JiaguBy360Task
-import com.eonliu.packer.task.UploadApkTask
+import com.eonliu.packer.task.TaskCreator
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -16,8 +15,10 @@ class PackerPlugin implements Plugin<Project> {
     void apply(Project project) {
         // 创建packer扩展
         project.extensions.create("packer", PackerExtension)
-        UploadApkTask.createTasks(project)
-        JiaguBy360Task.createTasks(project)
+        // 创建加固task
+        TaskCreator.createTasks(project, true)
+        // 创建不加固task
+        TaskCreator.createTasks(project, false)
     }
 
 }

@@ -1,4 +1,4 @@
-![](https://raw.github.com/eonliu/packer/master/logo.jpg)
+![](https://raw.github.com/eonliu/packer/master/images/logo.jpg)
 
 # Packer
 

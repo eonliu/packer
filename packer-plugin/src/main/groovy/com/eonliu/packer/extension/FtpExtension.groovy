@@ -18,12 +18,16 @@ class FtpExtension {
      */
     String ftpPassword
     /**
-     * 文件将上传到指定的ftpUrl的dir路径中
+     * 加固包将上传到指定的ftpUrl的publishDir路径中
      */
-    String ftpDir
+    String publishDir
     /**
-     * 是否自动创建文件路径。只针对upload**Task，publish不受此参数影响。
-     * 默认会创建 projectName/variantName/versionName/ 目录，
+     * 未加固包将上传到指定的ftpUrl的uploadDir路径中
+     */
+    String uploadDir
+    /**
+     * 是否自动创建文件路径。
+     * 默认会创建 projectName/versionName/ 目录，
      * 如果为false，则直接使用ftpUrl
      */
     boolean autoCreateDir
