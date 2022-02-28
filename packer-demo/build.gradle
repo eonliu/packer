@@ -63,11 +63,11 @@ packer {
     jiagu {
         userName = properties.getProperty('packerUserName')
         password = properties.getProperty('packerPassword')
-        channelsPath = properties.getProperty('packerChannelsPath')
+        channelsPath = "${project.projectDir}/channels.txt"
     }
 
     sign {
-        keystorePath = properties.getProperty('packerKeystorePath')
+        keystorePath = "${project.projectDir}/packer-demo.keystore"
         keystorePassword = properties.getProperty('packerKeystorePassword')
         alias = properties.getProperty('packerAlias')
         aliasPassword = properties.getProperty('packerAliasPassword')
