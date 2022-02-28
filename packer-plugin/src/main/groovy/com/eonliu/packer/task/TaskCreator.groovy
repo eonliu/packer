@@ -12,8 +12,8 @@ class TaskCreator {
 
     static final TASK_PREFIX_PUBLISH = "publish"
     static final TASK_PREFIX_UPLOAD = "upload"
-    static final TASK_SUFFIX_APK = "apks"
-    static final TASK_SUFFIX_APKS = "apk"
+    static final TASK_SUFFIX_APK = "Apk"
+    static final TASK_SUFFIX_APKS = "Apks"
 
     /**
      * 创建task
@@ -49,10 +49,10 @@ class TaskCreator {
 
                                     if (isPublish) {
                                         // 加固包处理
-                                        handleJiaguApk(project)
+                                        handleJiaguApk(project, apkFilePath)
                                     } else {
                                         // 不加固包处理
-                                        uploadApk(project, packerExt, isPublish, apkFilePath)
+                                        uploadApk(project, isPublish, apkFilePath)
                                     }
                                 }
                             }
@@ -72,22 +72,33 @@ class TaskCreator {
         project.logger.error(processError.toString())
     }
 
-    static void handleJiaguApk(Project project) {
+    static void handleJiaguApk(Project project, GString apkFilePath) {
+        def packerExt = project.extensions.getByType(PackerExtension)
+        def jiaguUserName = packerExt.jiagu.userName
+        def jiaguPassword = packerExt.jiagu.password
+        def jiaguChannelsPath = packerExt.jiagu.channelsPath
+        def keystorePath = packerExt.sign.keystorePath
+        def keystorePassword = packerExt.sign.keystorePassword
+        def alias = packerExt.sign.alias
+        def aliasPassword = packerExt.sign.aliasPassword
         def out = new ByteArrayOutputStream()
-        def cmd = './jiagu/jiagu.sh'
+        // jiagu.sh apk路径 apk输出路径
+        def cmd = "./jiagu/jiagu.sh $jiaguUserName $jiaguPassword $apkFilePath $jiaguChannelsPath $keystorePath $keystorePassword $alias $aliasPassword"
         project.exec {
             ExecSpec execSpec ->
                 executable 'bash'
                 args '-c', cmd
                 standardOutput = out
         }
-        project.logger.lifecycle(out.toString())
         println(out.toString())
 
-        def outputPath = ""
+        def outputPath = "${project.projectDir}/jiagu/output/$jiaguUserName/"
+
+        project.logger.lifecycle("> Packer: 加固apk输出路径：$outputPath")
+
         new File(outputPath).list().each {
             if (it.endsWith(".apk")) {
-                uploadApk(project, true, it)
+                uploadApk(project, true, outputPath + it)
             }
         }
     }
@@ -113,10 +124,13 @@ class TaskCreator {
         }
         def realFtpUrl
         if (packerExt.ftp.autoCreateDir) {
-            realFtpUrl = ftpUrl + rootDir + +"/v" + appExt.defaultConfig.versionName + "/"
+            realFtpUrl = ftpUrl + rootDir + "/v" + appExt.defaultConfig.versionName + "/"
         } else {
             realFtpUrl = ftpUrl
         }
+
+        project.logger.lifecycle("> Packer: 上传加固apk：" + apkFilePath)
+
         // 上传文件命令(如果目录不存在自动创建）
         def command = "curl -u $ftpUserName:$ftpPwd -T $apkFilePath $realFtpUrl --ftp-create-dirs"
         execAndLog(project, command)
