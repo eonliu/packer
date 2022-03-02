@@ -55,31 +55,31 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
 }
 
-packer {
-
-    Properties properties = new Properties()
-    properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
-    jiagu {
-        userName = properties.getProperty('packerUserName')
-        password = properties.getProperty('packerPassword')
-        channelsPath = "${project.projectDir}/channels.txt"
-    }
-
-    sign {
-        keystorePath = "${project.projectDir}/packer-demo.keystore"
-        keystorePassword = properties.getProperty('packerKeystorePassword')
-        alias = properties.getProperty('packerAlias')
-        aliasPassword = properties.getProperty('packerAliasPassword')
-    }
-
-    ftp {
-        ftpUserName = properties.getProperty('packerFtpUserName')
-        ftpPassword = properties.getProperty('packerFtpPassword')
-        ftpUrl = properties.getProperty('packerFtpUrl')
-        autoCreateDir = false
-        publishDir = "packer-demo-release"
-        uploadDir = "packer-demo-beta"
-    }
-
-}
+//packer {
+//
+//    Properties properties = new Properties()
+//    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+//
+//    jiagu {
+//        userName = properties.getProperty('packerUserName')
+//        password = properties.getProperty('packerPassword')
+//        channelsPath = "${project.projectDir}/channels.txt"
+//    }
+//
+//    sign {
+//        keystorePath = "${project.projectDir}/packer-demo.keystore"
+//        keystorePassword = properties.getProperty('packerKeystorePassword')
+//        alias = properties.getProperty('packerAlias')
+//        aliasPassword = properties.getProperty('packerAliasPassword')
+//    }
+//
+//    ftp {
+//        ftpUserName = properties.getProperty('packerFtpUserName')
+//        ftpPassword = properties.getProperty('packerFtpPassword')
+//        ftpUrl = properties.getProperty('packerFtpUrl')
+//        autoCreateDir = false
+//        publishDir = "packer-demo-release"
+//        uploadDir = "packer-demo-beta"
+//    }
+//
+//}
