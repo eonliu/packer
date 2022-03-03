@@ -3,6 +3,7 @@ package com.eonliu.packer.task
 import com.android.build.gradle.AppExtension
 import com.eonliu.packer.extension.PackerExtension
 import org.gradle.api.Project
+import org.gradle.internal.os.OperatingSystem
 import org.gradle.process.ExecSpec
 
 /**
@@ -91,7 +92,16 @@ class TaskCreator {
         }
         println(out.toString())
 
-        def outputPath = "${project.projectDir}/jiagu/output/$jiaguUserName/"
+        def outputPath
+        if(OperatingSystem.current().isLinux()) {
+            outputPath = "${project.projectDir}/jiagu/jiaug-linux/jiagu/output/$jiaguUserName/"
+        } else if(OperatingSystem.current().isMacOsX()) {
+            outputPath = "${project.projectDir}/jiagu/jiaug-mac/jiagu/output/$jiaguUserName/"
+        } else {
+            outputPath = "${project.projectDir}/jiagu/jiaug-windows/jiagu/output/$jiaguUserName/"
+        }
+
+
 
         project.logger.lifecycle("> Packer: 加固apk输出路径：$outputPath")
 
