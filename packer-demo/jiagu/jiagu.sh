@@ -1,6 +1,16 @@
 echo ==========================Packer==========================
 
-jiagu_dir=./jiagu/
+if [[ `uname` == 'Darwin' ]]; then
+  jiagu_dir=./jiagu/jiagu-mac/jiagu
+  echo "Mac OS"
+fi
+
+
+if [[ `uname` == 'Linux' ]]; then
+  jiagu_dir=./jiagu/jiagu-linux/jiagu
+  echo "Linux"
+fi
+
 username=$1
 password=$2
 
@@ -34,7 +44,8 @@ echo apk路径: $input_apk_path
 output_apk_path=`pwd`/output/$username/
 echo apk输出路径: $output_apk_path
 #清空文件夹
-#rm -rf * $output_apk_path
+rm -rf * $output_apk_path
+mkdir $output_apk_path
 
 # 加固apk(自动重新签名、自动打多渠道包)
 ./java/bin/java -jar jiagu.jar -jiagu $input_apk_path $output_apk_path -autosign -automulpkg
