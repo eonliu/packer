@@ -94,11 +94,11 @@ class TaskCreator {
 
         def outputPath
         if(OperatingSystem.current().isLinux()) {
-            outputPath = "${project.projectDir}/jiagu/jiaug-linux/jiagu/output/$jiaguUserName/"
+            outputPath = "${project.projectDir}/jiagu/jiagu-linux/jiagu/output/$jiaguUserName/"
         } else if(OperatingSystem.current().isMacOsX()) {
-            outputPath = "${project.projectDir}/jiagu/jiaug-mac/jiagu/output/$jiaguUserName/"
+            outputPath = "${project.projectDir}/jiagu/jiagu-mac/jiagu/output/$jiaguUserName/"
         } else {
-            outputPath = "${project.projectDir}/jiagu/jiaug-windows/jiagu/output/$jiaguUserName/"
+            outputPath = "${project.projectDir}/jiagu/jiagu-windows/jiagu/output/$jiaguUserName/"
         }
 
 
