@@ -1,22 +1,17 @@
 echo ==========================Packer==========================
+output_apk_path=`pwd`/output/$username/
 
 if [[ `uname` == 'Darwin' ]]; then
-  jiagu_dir=./jiagu/jiagu-mac/jiagu
+  jiagu_dir=~/jiagu
   echo "Mac OS"
-fi
-
-
-if [[ `uname` == 'Linux' ]]; then
-  jiagu_dir=./jiagu/jiagu-linux/jiagu
-  echo "Linux"
 fi
 
 username=$1
 password=$2
 
 # 进入360加固目录
-cd $jiagu_dir
-echo 360加固工具路径 : `pwd`
+cd $jiagu_dir || exit
+echo 360加固工具路径 : $(pwd)
 
 # 登录360加固
 ./java/bin/java -jar jiagu.jar -version
@@ -41,7 +36,7 @@ echo 多渠道配置文件路径 : $mulpkg_path
 
 input_apk_path=$3
 echo apk路径: $input_apk_path
-output_apk_path=`pwd`/output/$username/
+
 echo apk输出路径: $output_apk_path
 #清空文件夹
 rm -rf * $output_apk_path

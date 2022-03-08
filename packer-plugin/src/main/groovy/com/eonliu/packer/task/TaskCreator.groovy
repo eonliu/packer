@@ -92,16 +92,7 @@ class TaskCreator {
         }
         println(out.toString())
 
-        def outputPath
-        if(OperatingSystem.current().isLinux()) {
-            outputPath = "${project.projectDir}/jiagu/jiagu-linux/jiagu/output/$jiaguUserName/"
-        } else if(OperatingSystem.current().isMacOsX()) {
-            outputPath = "${project.projectDir}/jiagu/jiagu-mac/jiagu/output/$jiaguUserName/"
-        } else {
-            outputPath = "${project.projectDir}/jiagu/jiagu-windows/jiagu/output/$jiaguUserName/"
-        }
-
-
+        def outputPath = "${project.projectDir}/jiagu/output/$jiaguUserName/"
 
         project.logger.lifecycle("> Packer: 加固apk输出路径：$outputPath")
 
