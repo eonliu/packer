@@ -3,7 +3,7 @@
 # Packer
 
 [![license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](https://github.com/eonliu/packer/blob/master/LICENSE)
-[![Release Version](https://img.shields.io/badge/release-1.1.5-red.svg)](https://github.com/eonliu/packer/releases)
+[![Release Version](https://img.shields.io/badge/release-1.1.6-red.svg)](https://github.com/eonliu/packer/releases)
 
 Packer设计初衷是通过Gradle Task自动打包、加固、并上传到指定FTP地址，供其他人员使用APK，可以节省开发人员的打包时间、方便测试等同学使用最新apk、可以在FTP上查找历史版本APK。
 
@@ -21,13 +21,11 @@ Packer设计初衷是通过Gradle Task自动打包、加固、并上传到指定
 
 - [x] 支持多渠道打包。
 
-- [x] 支持Linux、macOS、Windows
-
 ## Install
 
 ```groovy
 dependencies {
-    classpath "com.eonliu.packer:packer:1.1.5"
+    classpath "com.eonliu.packer:packer:1.1.6"
 }
 ```
 
