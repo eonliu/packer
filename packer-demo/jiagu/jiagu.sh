@@ -1,10 +1,7 @@
 echo ==========================Packer==========================
 output_apk_path=`pwd`/output/$username/
 
-if [[ `uname` == 'Darwin' ]]; then
-  jiagu_dir=~/jiagu
-  echo "Mac OS"
-fi
+jiagu_dir=~/jiagu
 
 username=$1
 password=$2
