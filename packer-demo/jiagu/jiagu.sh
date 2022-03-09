@@ -1,10 +1,8 @@
 echo ==========================Packer==========================
-output_apk_path=`pwd`/output/$username/
 
-jiagu_dir=~/jiagu
-
-username=$1
-password=$2
+jiagu_dir=$1
+username=$2
+password=$3
 
 # 进入360加固目录
 cd $jiagu_dir || exit
@@ -14,16 +12,16 @@ echo 360加固工具路径 : $(pwd)
 ./java/bin/java -jar jiagu.jar -version
 ./java/bin/java -jar jiagu.jar -login $username $password
 # 签名配置
-keystore_path=$5
-keystore_password=$6
-alias=$7
-alias_password=$8
+keystore_path=$6
+keystore_password=$7
+alias=$8
+alias_password=$9
 ./java/bin/java -jar jiagu.jar -importsign $keystore_path $keystore_password $alias $alias_password
 echo 签名文件路径 : $keystore_path
 ./java/bin/java -jar jiagu.jar -showsign
 
 # 渠道配置
-mulpkg_path=$4
+mulpkg_path=$5
 ./java/bin/java -jar jiagu.jar -importmulpkg $mulpkg_path
 ./java/bin/java -jar jiagu.jar -showmulpkg
 echo 多渠道配置文件路径 : $mulpkg_path
@@ -33,10 +31,10 @@ echo 多渠道配置文件路径 : $mulpkg_path
 
 input_apk_path=$3
 echo apk路径: $input_apk_path
-
+output_apk_path=$jiagu_dir/output/$username/
 echo apk输出路径: $output_apk_path
 #清空文件夹
-rm -rf * $output_apk_path
+rm -rf $output_apk_path
 mkdir $output_apk_path
 
 # 加固apk(自动重新签名、自动打多渠道包)

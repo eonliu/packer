@@ -77,13 +77,14 @@ class TaskCreator {
         def jiaguUserName = packerExt.jiagu.userName
         def jiaguPassword = packerExt.jiagu.password
         def jiaguChannelsPath = packerExt.jiagu.channelsPath
+        def jiaguPath = packerExt.jiagu.jiaguPath
         def keystorePath = packerExt.sign.keystorePath
         def keystorePassword = packerExt.sign.keystorePassword
         def alias = packerExt.sign.alias
         def aliasPassword = packerExt.sign.aliasPassword
         def out = new ByteArrayOutputStream()
         // jiagu.sh apk路径 apk输出路径
-        def cmd = "./jiagu/jiagu.sh $jiaguUserName $jiaguPassword $apkFilePath $jiaguChannelsPath $keystorePath $keystorePassword $alias $aliasPassword"
+        def cmd = "./jiagu/jiagu.sh $jiaguPath $jiaguUserName $jiaguPassword $apkFilePath $jiaguChannelsPath $keystorePath $keystorePassword $alias $aliasPassword"
         project.exec {
             ExecSpec execSpec ->
                 executable 'bash'
@@ -92,7 +93,7 @@ class TaskCreator {
         }
         println(out.toString())
 
-        def outputPath = "${project.projectDir}/jiagu/output/$jiaguUserName/"
+        def outputPath = "$jiaguPath/output/$jiaguUserName/"
 
         project.logger.lifecycle("> Packer: 加固apk输出路径：$outputPath")
 
