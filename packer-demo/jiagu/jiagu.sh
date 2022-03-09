@@ -1,5 +1,4 @@
 echo ==========================Packer==========================
-
 jiagu_dir=$1
 username=$2
 password=$3
@@ -36,6 +35,8 @@ echo apk输出路径: $output_apk_path
 #清空文件夹
 rm -rf $output_apk_path
 mkdir $output_apk_path
+
+echo "加固中..."
 
 # 加固apk(自动重新签名、自动打多渠道包)
 ./java/bin/java -jar jiagu.jar -jiagu $input_apk_path $output_apk_path -autosign -automulpkg
