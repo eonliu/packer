@@ -3,7 +3,7 @@
 # Packer
 
 [![license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](https://github.com/eonliu/packer/blob/master/LICENSE)
-[![Release Version](https://img.shields.io/badge/release-1.1.6-red.svg)](https://github.com/eonliu/packer/releases)
+[![Release Version](https://img.shields.io/badge/release-1.1.7-red.svg)](https://github.com/eonliu/packer/releases)
 
 Packer设计初衷是通过Gradle Task自动打包、加固、并上传到指定FTP地址，供其他人员使用APK，可以节省开发人员的打包时间、方便测试等同学使用最新apk、可以在FTP上查找历史版本APK。
 
@@ -25,7 +25,7 @@ Packer设计初衷是通过Gradle Task自动打包、加固、并上传到指定
 
 ```groovy
 dependencies {
-    classpath "com.eonliu.packer:packer:1.1.6"
+    classpath "com.eonliu.packer:packer:1.1.7"
 }
 ```
 
@@ -43,6 +43,7 @@ packer {
         userName = '360加固用户名'
         password = '360加固密码'
         channelsPath = '/***/channels.txt' // 多渠道配置文件，参考360加固多渠道配置模板
+        jiaguPath = '~/360jiagubao_mac/jiaug' // 360加固工具路径
     }
 
     sign {
