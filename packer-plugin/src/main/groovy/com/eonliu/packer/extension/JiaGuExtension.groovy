@@ -5,7 +5,7 @@ package com.eonliu.packer.extension
  *
  * @author Eon Liu
  */
-class JiaGu360Extension {
+class JiaGuExtension {
 
     /**
      * 360加固登录用户名
@@ -23,4 +23,8 @@ class JiaGu360Extension {
      * 360加固工具路径
      */
     String jiaguPath
+    /**
+     * 默认使用360打多渠道包，如果设为true则使用美团walle打多渠道包
+     */
+    Boolean useWalle
 }

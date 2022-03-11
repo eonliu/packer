@@ -14,9 +14,9 @@ class PackerExtension {
      */
     String apkDirectory
     /**
-     * 360加固相关配置
+     * 加固相关配置
      */
-    JiaGu360Extension jiagu = new JiaGu360Extension()
+    JiaGuExtension jiagu = new JiaGuExtension()
     /**
      * FTP相关配置
      */
