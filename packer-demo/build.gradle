@@ -37,15 +37,6 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
-    productFlavors {
-        xiaomi {
-
-        }
-        google {
-
-        }
-    }
 }
 
 dependencies {
@@ -53,6 +44,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
+    implementation 'com.meituan.android.walle:library:1.1.7'
 }
 
 //packer {
