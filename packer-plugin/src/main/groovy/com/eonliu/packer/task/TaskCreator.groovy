@@ -84,8 +84,9 @@ class TaskCreator {
         def aliasPassword = packerExt.sign.aliasPassword
         def useWalle = packerExt.jiagu.useWalle
         def out = new ByteArrayOutputStream()
+        def walleJarPath = "${project.projectDir}/jiagu/walle-cli-all.jar"
         // jiagu.sh apk路径 apk输出路径
-        def cmd = "./jiagu/jiagu.sh $jiaguPath $jiaguUserName $jiaguPassword $apkFilePath $jiaguChannelsPath $keystorePath $keystorePassword $alias $aliasPassword $useWalle"
+        def cmd = "./jiagu/jiagu.sh $jiaguPath $jiaguUserName $jiaguPassword $apkFilePath $jiaguChannelsPath $keystorePath $keystorePassword $alias $aliasPassword $useWalle $walleJarPath"
         project.exec {
             ExecSpec execSpec ->
                 executable 'bash'

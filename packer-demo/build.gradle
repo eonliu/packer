@@ -56,23 +56,23 @@ packer {
         userName = properties.getProperty('packerUserName')
         password = properties.getProperty('packerPassword')
         jiaguPath =  properties.getProperty('packerJiaguPath')// 360加固工具路径
-        // channelsPath = "${project.projectDir}/channels.txt"
-        channelsPath = "${project.projectDir}/walle_channels.txt"
-        // useWalle = true // 默认使用360加固，如果为true则使用美团walle进行多渠道打包
+        channelsPath = "${project.projectDir}/channels.txt"
+//        channelsPath = "${project.projectDir}/walle_channels.txt"
+        useWalle = false // 默认使用360加固，如果为true则使用美团walle进行多渠道打包
     }
 
     sign {
         keystorePath = "${project.projectDir}/packer-demo.keystore"
-        keystorePassword = properties.getProperty('packerKeystorePassword')
-        alias = properties.getProperty('packerAlias')
-        aliasPassword = properties.getProperty('packerAliasPassword')
+        keystorePassword = "packer123"
+        alias = "packer"
+        aliasPassword = "packer123"
     }
 
     ftp {
         ftpUserName = properties.getProperty('packerFtpUserName')
         ftpPassword = properties.getProperty('packerFtpPassword')
         ftpUrl = properties.getProperty('packerFtpUrl')
-        autoCreateDir = false
+        autoCreateDir = true
         publishDir = "packer-demo-release"
         uploadDir = "packer-demo-beta"
     }
