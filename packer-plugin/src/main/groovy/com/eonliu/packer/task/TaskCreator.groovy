@@ -6,6 +6,8 @@ import org.gradle.api.Project
 import org.gradle.internal.os.OperatingSystem
 import org.gradle.process.ExecSpec
 
+import java.nio.file.Paths
+
 /**
  * @author Eon Liu
  */
@@ -82,9 +84,16 @@ class TaskCreator {
         def keystorePassword = packerExt.sign.keystorePassword
         def alias = packerExt.sign.alias
         def aliasPassword = packerExt.sign.aliasPassword
+        def useWalle = packerExt.jiagu.useWalle
         def out = new ByteArrayOutputStream()
+        def walleJarPath = "${project.projectDir}/jiagu/walle-cli-all.jar"
+
+        def appExt = project.extensions.getByType(AppExtension)
+        def zipalign = appExt.sdkDirectory.absolutePath + "/build-tools/" + project.android.getBuildToolsVersion() + "/" + "zipalign"
+        def apksigner = appExt.sdkDirectory.absolutePath + "/build-tools/" + project.android.getBuildToolsVersion() + "/" + "apksigner"
+
         // jiagu.sh apk路径 apk输出路径
-        def cmd = "./jiagu/jiagu.sh $jiaguPath $jiaguUserName $jiaguPassword $apkFilePath $jiaguChannelsPath $keystorePath $keystorePassword $alias $aliasPassword"
+        def cmd = "./jiagu/jiagu.sh $jiaguPath $jiaguUserName $jiaguPassword $apkFilePath $jiaguChannelsPath $keystorePath $keystorePassword $alias $aliasPassword $useWalle $walleJarPath $zipalign $apksigner"
         project.exec {
             ExecSpec execSpec ->
                 executable 'bash'

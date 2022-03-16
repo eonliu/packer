@@ -37,15 +37,6 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
-    productFlavors {
-        xiaomi {
-
-        }
-        google {
-
-        }
-    }
 }
 
 dependencies {
@@ -53,33 +44,37 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
+    implementation 'com.meituan.android.walle:library:1.1.7'
 }
 
-//packer {
-//
-//    Properties properties = new Properties()
-//    properties.load(project.rootProject.file('local.properties').newDataInputStream())
-//
-//    jiagu {
-//        userName = properties.getProperty('packerUserName')
-//        password = properties.getProperty('packerPassword')
+packer {
+
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+    jiagu {
+        userName = properties.getProperty('packerUserName')
+        password = properties.getProperty('packerPassword')
+        jiaguPath =  properties.getProperty('packerJiaguPath')// 360加固工具路径
 //        channelsPath = "${project.projectDir}/channels.txt"
-//    }
-//
-//    sign {
-//        keystorePath = "${project.projectDir}/packer-demo.keystore"
-//        keystorePassword = properties.getProperty('packerKeystorePassword')
-//        alias = properties.getProperty('packerAlias')
-//        aliasPassword = properties.getProperty('packerAliasPassword')
-//    }
-//
-//    ftp {
-//        ftpUserName = properties.getProperty('packerFtpUserName')
-//        ftpPassword = properties.getProperty('packerFtpPassword')
-//        ftpUrl = properties.getProperty('packerFtpUrl')
-//        autoCreateDir = false
-//        publishDir = "packer-demo-release"
-//        uploadDir = "packer-demo-beta"
-//    }
-//
-//}
+        channelsPath = "${project.projectDir}/walle_channels"
+        useWalle = true // 默认使用360加固，如果为true则使用美团walle进行多渠道打包
+    }
+
+    sign {
+        keystorePath = "${project.projectDir}/packer-demo.keystore"
+        keystorePassword = "packer123"
+        alias = "packer"
+        aliasPassword = "packer123"
+    }
+
+    ftp {
+        ftpUserName = properties.getProperty('packerFtpUserName')
+        ftpPassword = properties.getProperty('packerFtpPassword')
+        ftpUrl = properties.getProperty('packerFtpUrl')
+        autoCreateDir = true
+        publishDir = "packer-demo-release"
+        uploadDir = "packer-demo-beta"
+    }
+
+}
