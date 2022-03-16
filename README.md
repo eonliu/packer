@@ -34,6 +34,7 @@ dependencies {
 ## Usage
 
 1. 将`packer-demo`中的`jiagu`目录复制到自己工程的`app`目录下。
+    `jiagu.sh`是加固脚本，`walle-cli-all.jar`是美[团walle](https://github.com/Meituan-Dianping/walle)多渠道打包工具。
 
 2. 在主工程中添加如下配置代码。
 
