@@ -102,12 +102,12 @@ function mulpkgByWalle() {
   for file  in $(ls "$OUTPUT_APK_PATH"); do
     if [ -f "$OUTPUT_APK_PATH/$file" ] && [[ "${file##*.}"x = "apk"x ]]; then
       ORIGIN_APK="$OUTPUT_APK_PATH$file"
-      ZIPPED_APK="${OUTPUT_APK_PATH}zipped.apk"
+      ZIPPED_APK="${ORIGIN_APK/%.apk/_zipped.apk}"
       # zipalign
 	    $ZIPALIGN -v 4 "$ORIGIN_APK" "$ZIPPED_APK"
       # rm -f "$ZIPPED_APK"
 	    # sign v2
-	    SIGNED_APK="${OUTPUT_APK_PATH}signed.apk"
+	    SIGNED_APK="${ZIPPED_APK/%.apk/_signed.apk}"
       $APKSIGNER sign --ks "$KEYSTORE_PATH"  --ks-key-alias "$KEYSTORE_ALIAS"  --ks-pass pass:"$KEYSTORE_PASSWORD"  --key-pass pass:"$KEYSTORE_ALIAS_PASSWORD" --out "$SIGNED_APK" "$ZIPPED_APK"
       # walle
       echo "Packer > 使用Walle打多渠道包，源apk路径 >>> $SIGNED_APK"
