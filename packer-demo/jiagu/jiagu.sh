@@ -22,8 +22,13 @@ KEYSTORE_ALIAS=$8 						# 签名别名
 KEYSTORE_ALIAS_PASSWORD=$9 		# 签名别名密码
 USE_WALLE=${10} 			  			# 实收使用walle打多渠道包
 WALLE_JAR_PATH=${11}          # walle jar 路径
+ZIPALIGN=${12}                # android sdk zipalign 路径
+APKSIGNER=${13}               # android sdk apksigner 路径
 
 echo "Packer > walle jar path : $WALLE_JAR_PATH, 是否使用Walle打多渠道包：$USE_WALLE"
+
+echo "Packer > zipalign path: $ZIPALIGN"
+echo "Packer > apksigner path: $APKSIGNER"
 
 function login360(){
 	./java/bin/java -jar jiagu.jar -version
@@ -58,15 +63,15 @@ function jiaguBy360() {
 	# 清空之前加固的apk，防止重复上传
 	if [[ -d $OUTPUT_APK_PATH ]]; then
 		rm -rf "$OUTPUT_APK_PATH"
-		mkdir "$OUTPUT_APK_PATH"
 	fi
+
+	mkdir "$OUTPUT_APK_PATH"
 
 	echo "Packer > 加固后apk输出路径: $OUTPUT_APK_PATH"
 	echo "Packer > 加固中..."
 	
 	# 加固apk(自动重新签名、自动打多渠道包)
 	if [ "$USE_WALLE" == "true" ]; then
-	  echo "Packer > 使用Walle打多渠道包"
 	  ./java/bin/java -jar jiagu.jar -jiagu "$INPUT_APK_PATH" "$OUTPUT_APK_PATH"
 	else
 	  echo "Packer > 使用360打多渠道包"
@@ -86,11 +91,29 @@ function mulpkgBy360() {
 }
 
 function mulpkgByWalle() {
+  # 配置签名
+	configSign
+	# 配置加固服务
+	configJiagu
 	# 加固
 	jiaguBy360
-	# 重新签名
-	
+
 	# 使用walle打多渠道包
+  for file  in $(ls "$OUTPUT_APK_PATH"); do
+    if [ -f "$OUTPUT_APK_PATH/$file" ] && [[ "${file##*.}"x = "apk"x ]]; then
+      ORIGIN_APK="$OUTPUT_APK_PATH$file"
+      ZIPPED_APK="${OUTPUT_APK_PATH}zipped.apk"
+      # zipalign
+	    $ZIPALIGN -v 4 "$ORIGIN_APK" "$ZIPPED_APK"
+      # rm -f "$ZIPPED_APK"
+	    # sign v2
+	    SIGNED_APK="${OUTPUT_APK_PATH}signed.apk"
+      $APKSIGNER sign --ks "$KEYSTORE_PATH"  --ks-key-alias "$KEYSTORE_ALIAS"  --ks-pass pass:"$KEYSTORE_PASSWORD"  --key-pass pass:"$KEYSTORE_ALIAS_PASSWORD" --out "$SIGNED_APK" "$ZIPPED_APK"
+      # walle
+      echo "Packer > 使用Walle打多渠道包，源apk路径 >>> $SIGNED_APK"
+      java -jar "$WALLE_JAR_PATH" batch -f "$MULPKG_PATH" "$SIGNED_APK"
+    fi
+  done
 }
 
 if [[ -d $JIAGU_DIR ]] && cd "$JIAGU_DIR"; then
@@ -103,7 +126,6 @@ if [[ -d $JIAGU_DIR ]] && cd "$JIAGU_DIR"; then
 	else
 		mulpkgBy360
 	fi
-	
 else
 	echo "Packer > 360加固工具路径错误：$JIAGU_DIR"
 fi
