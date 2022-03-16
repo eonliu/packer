@@ -46,8 +46,9 @@ packer {
     jiagu {
         userName = '360加固用户名'
         password = '360加固密码'
-        channelsPath = '/***/channels.txt' // 多渠道配置文件，参考360加固多渠道配置模板
         jiaguPath = '~/360jiagubao_mac/jiaug' // 360加固工具路径
+        // channelsPath = '/***/channels.txt' // 多渠道配置文件，参考360加固多渠道配置模板
+        channelsPath = "${project.projectDir}/walle_channels" // walle多渠道配置文件
         useWalle = true // 默认使用360加固，如果为true则使用美团walle进行多渠道打包
     }
 
