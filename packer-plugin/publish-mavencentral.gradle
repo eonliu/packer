@@ -75,7 +75,7 @@ publishing {
         maven {
             name = "packer"
             url = version.endsWith('SNAPSHOT') ? PUBLISH_MAVEN_SNAPSHOT_URL : PUBLISH_MAVEN_RELEASE_URL
-            maven {url uri('../repo')}
+//            maven {url uri('../repo')}
 
             credentials {
                 username ossrhUsername
