@@ -31,4 +31,16 @@ class FtpExtension {
      * 如果为false，则直接使用ftpUrl
      */
     boolean autoCreateDir
+    /**
+     * 是否上传build/outputs/mapping文件，默认上传
+     */
+    boolean uploadMapping = true
+    /**
+     * 是否上传build/outputs/logs，默认上传
+     */
+    boolean uploadLogs = true
+    /**
+     * 是否上传build/outputs/sdk-dependencies，默认上传
+     */
+    boolean uploadSdkDependencies = true
 }
