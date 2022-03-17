@@ -112,6 +112,10 @@ function mulpkgByWalle() {
       # walle
       echo "Packer > 使用Walle打多渠道包，源apk路径 >>> $SIGNED_APK"
       java -jar "$WALLE_JAR_PATH" batch -f "$MULPKG_PATH" "$SIGNED_APK"
+      rm -f "$ORIGIN_APK"
+      rm -f "$ZIPPED_APK"
+      rm -f "$SIGNED_APK"
+      rm -f "${SIGNED_APK}.idsig"
     fi
   done
 }
