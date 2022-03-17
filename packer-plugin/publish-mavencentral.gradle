@@ -3,7 +3,7 @@ apply plugin: 'maven-publish'
 ext {
     PUBLISH_ARTIFACT_ID = "packer"
     //发布版本号
-    PUBLISH_VERSION = "2.0.0"
+    PUBLISH_VERSION = "2.1.0"
     //sonatype的group_id
     PUBLISH_GROUP_ID = 'com.eonliu.packer'
     // maven仓库默认RELEASE地址
@@ -76,7 +76,7 @@ publishing {
             name = "packer"
             url = version.endsWith('SNAPSHOT') ? PUBLISH_MAVEN_SNAPSHOT_URL : PUBLISH_MAVEN_RELEASE_URL
 //            maven {url uri('../repo')}
-//
+
             credentials {
                 username ossrhUsername
                 password ossrhPassword

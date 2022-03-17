@@ -51,10 +51,10 @@ class TaskCreator {
 
                                     if (isPublish) {
                                         // 加固包处理
-                                        handleJiaguApk(project, apkFilePath)
+                                        handleJiaguApk(project, apkFilePath, variant.getDirName())
                                     } else {
                                         // 不加固包处理
-                                        uploadApk(project, isPublish, apkFilePath)
+                                        uploadApk(project, isPublish, apkFilePath, variant.getDirName())
                                     }
                                 }
                             }
@@ -74,7 +74,7 @@ class TaskCreator {
         project.logger.error(processError.toString())
     }
 
-    static void handleJiaguApk(Project project, GString apkFilePath) {
+    static void handleJiaguApk(Project project, GString apkFilePath, String variantName) {
         def packerExt = project.extensions.getByType(PackerExtension)
         def jiaguUserName = packerExt.jiagu.userName
         def jiaguPassword = packerExt.jiagu.password
@@ -108,16 +108,19 @@ class TaskCreator {
 
         new File(outputPath).list().each {
             if (it.endsWith(".apk")) {
-                uploadApk(project, true, outputPath + it)
+                uploadApk(project, true, outputPath + it, variantName)
             }
         }
     }
 
-    static void uploadApk(Project project, boolean isPublish, String apkFilePath) {
+    static void uploadApk(Project project, boolean isPublish, String apkFilePath, String variantName) {
         def appExt = project.extensions.getByType(AppExtension)
         def packerExt = project.extensions.getByType(PackerExtension)
         def ftpUserName = packerExt.ftp.ftpUserName
         def ftpPwd = packerExt.ftp.ftpPassword
+        def uploadMapping = packerExt.ftp.uploadMapping
+        def uploadLogs = packerExt.ftp.uploadLogs
+        def uploadSdkDependencies = packerExt.ftp.uploadSdkDependencies
         def ftpUrl = ""
         if (packerExt.ftp.ftpUrl != null) {
             ftpUrl = packerExt.ftp.ftpUrl
@@ -145,5 +148,40 @@ class TaskCreator {
         def command = "curl -u $ftpUserName:$ftpPwd -T $apkFilePath $realFtpUrl --ftp-create-dirs"
         execAndLog(project, command)
         project.logger.lifecycle("> Packer: ftp路径：" + realFtpUrl)
+
+        // 上传mapping
+        if (uploadMapping) {
+            project.logger.lifecycle("> Packer: 上传mapping...")
+            def mappingPath = "${project.buildDir}/outputs/mapping/${variantName}/"
+            def ftpMappingPath = ftpUrl + rootDir + "/v" + appExt.defaultConfig.versionName + "/mapping/"
+            new File(mappingPath).list().each {
+                def mappingCommand = "curl -u $ftpUserName:$ftpPwd -T $mappingPath/$it $ftpMappingPath --ftp-create-dirs"
+                execAndLog(project, mappingCommand)
+            }
+        }
+
+        // 上传logs
+        if (uploadLogs) {
+            project.logger.lifecycle("> Packer: 上传logs...")
+            def logsPath = "${project.buildDir}/outputs/logs/"
+            def ftpLogsPath = ftpUrl + rootDir + "/v" + appExt.defaultConfig.versionName + "/logs/"
+            new File(logsPath).list().each {
+                if (it.contains(variantName)) {
+                    def logsCommand = "curl -u $ftpUserName:$ftpPwd -T $logsPath/$it $ftpLogsPath --ftp-create-dirs"
+                    execAndLog(project, logsCommand)
+                }
+            }
+        }
+
+        // 上传sdk-dependencies
+        if (uploadSdkDependencies) {
+            project.logger.lifecycle("> Packer: 上传sdk-dependencies...")
+            def sdkDependenciesPath = "${project.buildDir}/outputs/sdk-dependencies/${variantName}/"
+            def ftpSdkDependenciesPath = ftpUrl + rootDir + "/v" + appExt.defaultConfig.versionName + "/sdk-dependencies/"
+            new File(sdkDependenciesPath).list().each {
+                def sdkDependenciesCommand = "curl -u $ftpUserName:$ftpPwd -T $sdkDependenciesPath/$it $ftpSdkDependenciesPath --ftp-create-dirs"
+                execAndLog(project, sdkDependenciesCommand)
+            }
+        }
     }
 }

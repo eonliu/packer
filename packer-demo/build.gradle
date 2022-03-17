@@ -21,12 +21,12 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
         custom {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -75,6 +75,9 @@ packer {
         autoCreateDir = true
         publishDir = "packer-demo-release"
         uploadDir = "packer-demo-beta"
+        uploadMapping = true // 是否上传build/outputs/mapping文件，默认上传
+        uploadLogs = true // 是否上传build/outputs/logs，默认上传
+        uploadSdkDependencies = true // 是否上传build/outputs/sdk-dependencies，默认上传
     }
 
 }
