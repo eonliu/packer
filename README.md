@@ -15,7 +15,7 @@ Packer设计初衷是通过Gradle Task自动打包、加固、并上传到指定
 
 - [x] 支持自定义上传路径。
 
-- [x] 对每一个variant都会生成对应的上传task。
+- [x] 支持variant。
 
 - [x] 支持360加固。
 
