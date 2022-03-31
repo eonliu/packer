@@ -104,7 +104,7 @@ function mulpkgByWalle() {
       ORIGIN_APK="$OUTPUT_APK_PATH$file"
       ZIPPED_APK="${ORIGIN_APK/%.apk/_zipped.apk}"
       # zipalign
-	    $ZIPALIGN -v 4 "$ORIGIN_APK" "$ZIPPED_APK"
+	    $ZIPALIGN  -p -f -v  4 "$ORIGIN_APK" "$ZIPPED_APK"
       # rm -f "$ZIPPED_APK"
 	    # sign v2
 	    SIGNED_APK="${ZIPPED_APK/%.apk/_signed.apk}"
